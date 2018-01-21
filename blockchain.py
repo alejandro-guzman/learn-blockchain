@@ -53,7 +53,7 @@ class Blockchain(object):
 
         return self.last_block['index'] + 1
 
-    def proof_or_work(self, last_proof):
+    def proof_of_work(self, last_proof):
         """
 
         Simple Proof of Work Algorithm
