@@ -159,7 +159,6 @@ class Blockchain(object):
 
         # Grab and verify the chains from all the nodes in our network
         for node in neighbours:
-            # import pdb; pdb.set_trace()
             response = requests.get(f'http://{node}/chain')
 
             if response.status_code == 200:
