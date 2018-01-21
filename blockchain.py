@@ -77,14 +77,13 @@ class Blockchain(object):
         proof = 0
         while True:
             proof_digest = hashlib.sha256(str(proof).encode()).hexdigest()
-            _is_valid = self.valid_proof(last_block_hash, last_proof, proof_digest)
 
-            if _is_valid:
+            if self.valid_proof(last_block_hash, last_proof, proof_digest):
                 break
             else:
                 proof += 1
 
-        return f'{proof_digest}'
+        return proof_digest
 
     @staticmethod
     def valid_proof(last_block_hash, last_proof, proof):
@@ -98,7 +97,7 @@ class Blockchain(object):
         """
 
         # Set the difficulty
-        difficulty = 5
+        difficulty = 4
 
         guess = f'{last_block_hash}{last_proof}{proof}'.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
