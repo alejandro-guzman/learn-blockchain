@@ -17,12 +17,13 @@ class Blockchain(object):
 
         self.nodes = set()
 
-    def new_block(self, proof, previous_hash=None):
+    def new_block(self, proof, previous_hash=None, seconds_to_proof=None):
         """
         Create a new block in the Blockchain
 
         :param proof: <int> The proof given by the Proof of Work algorithm
         :param previous_hash: (optional) <str> Hash of previous block
+        :param seconds_to_proof: (optional) <flt> Time took in seconds to proof
         :return: <dict> New block
         """
 
@@ -31,7 +32,8 @@ class Blockchain(object):
             'timestamp': time(),
             'transactions': self.current_transactions,
             'proof': proof,
-            'previous_hash': previous_hash or self.hash(self.chain[-1])
+            'previous_hash': previous_hash or self.hash(self.chain[-1]),
+            'seconds_to_proof': seconds_to_proof
         }
 
         # Reset current list of transactions
