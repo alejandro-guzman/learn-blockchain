@@ -85,7 +85,9 @@ class Blockchain(object):
 
         guess = f'{last_proof}{proof}'.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
-        return guess_hash[:4] == '0000'
+        difficulty = 6
+
+        return guess_hash[:difficulty] == ('0' * difficulty), guess_hash
 
     @staticmethod
     def hash(block):
