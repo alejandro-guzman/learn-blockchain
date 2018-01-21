@@ -61,20 +61,27 @@ class Blockchain(object):
 
         return self.last_block['index'] + 1
 
-    def proof_of_work(self, last_proof):
+    def proof_of_work(self, last_block_hash, last_proof):
         """
 
         Simple Proof of Work Algorithm
 
+        :param last_block_hash: <int>
         :param last_proof: <int>
         :return: <int>
         """
 
         proof = 0
-        while self.valid_proof(last_proof, proof) is False:
-            proof += 1
+        while True:
+            proof_digest = hashlib.sha256(str(proof).encode()).hexdigest()
+            _is_valid = self.valid_proof(last_block_hash, last_proof, proof_digest)
 
-        return proof
+            if _is_valid:
+                break
+            else:
+                proof += 1
+
+        return f'{proof_digest}'
 
     @staticmethod
     def valid_proof(last_block_hash, last_proof, proof):
