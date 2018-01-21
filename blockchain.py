@@ -53,6 +53,35 @@ class Blockchain(object):
 
         return self.last_block['index'] + 1
 
+    def proof_or_work(self, last_proof):
+        """
+
+        Simple Proof of Work Algorithm
+
+        :param last_proof: <int>
+        :return: <int>
+        """
+
+        proof = 0
+        while self.valid_proof(last_proof, proof) is False:
+            proof += 1
+
+        return proof
+
+    @staticmethod
+    def valid_proof(last_proof, proof):
+        """
+        Validates Proof: Does the Proof contain 4 leading zeros?
+
+        :param last_proof: <int> Previous Proof
+        :param proof: <int> Proof candidate
+        :return: <bool> True if correct, False if not
+        """
+
+        guess = f'{last_proof}{proof}'.encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+        return guess_hash[:4] == '0000'
+
     @staticmethod
     def hash(block):
         """
