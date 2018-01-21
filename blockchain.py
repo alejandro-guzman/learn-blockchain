@@ -28,7 +28,7 @@ class Blockchain(object):
         """
 
         block = {
-            'index': len(self.chain) + 1,
+            'index': len(self.chain),
             'timestamp': time(),
             'transactions': self.current_transactions,
             'proof': proof,
@@ -52,11 +52,14 @@ class Blockchain(object):
         :return: <int> The index of the Block that will hold this transaction
         """
 
+        tx_index = len(self.current_transactions)
+
         self.current_transactions.append({
             'sender': sender,
             'recipient': recipient,
             'amount': amount,
-            'timestamp': time()
+            'timestamp': time(),
+            'tx_index': tx_index
         })
 
         return self.last_block['index'] + 1
